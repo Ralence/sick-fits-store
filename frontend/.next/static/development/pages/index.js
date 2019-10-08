@@ -72,7 +72,7 @@ function (_Component) {
         },
         __self: this
       }, item.image && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        href: item.image,
+        src: item.image,
         alt: item.title,
         __source: {
           fileName: _jsxFileName,
