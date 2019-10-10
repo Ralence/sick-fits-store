@@ -6,7 +6,9 @@
     "titleBar.inactiveBackground": "#FFC600CC"
   },
   "cSpell.words": [
+    "larr",
     "lightgrey",
-    "nprogress"
+    "nprogress",
+    "prefetch"
   ]
 }
