@@ -12,7 +12,7 @@ const Nav = () => (
                     <a>shop</a>
                 </Link>
                 {me && (
-                    <React.Fragment>
+                    <React.Fragment >
                         <Link href='/sell'>
                             <a>sell</a>
                         </Link>
