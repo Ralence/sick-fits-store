@@ -4,6 +4,7 @@
     "titleBar.inactiveBackground": "#FF2C70CC"
   },
   "cSpell.words": [
-    "prisma"
+    "prisma",
+    "promisify"
   ]
 }
