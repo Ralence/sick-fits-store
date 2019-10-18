@@ -12,23 +12,26 @@ server.express.use(cookieParser());
 
 // decode the JWT so we can get the user ID on each request
 server.express.use((req, res, next) => {
-    const { token } = req.cookies;
-    console.log(`token: ${token}`)
-    if (token) {
-        const { userId } = jwt.verify(token, process.env.APP_SECRET);
-        // put the userId onto the request for further requests to access
-        console.log(`userId: ${userId}`)
-        req.userId = userId;
-    }
-    next();
-})
+  const { token } = req.cookies;
+  console.log(`token: ${token}`);
+  if (token) {
+    const { userId } = jwt.verify(token, process.env.APP_SECRET);
+    // put the userId onto the request for further requests to access
+    console.log(`userId: ${userId}`);
+    req.userId = userId;
+  }
+  next();
+});
 // TODO use express middleware to populate current user
 
-server.start({
+server.start(
+  {
     cors: {
-        credentials: true,
-        origin: process.env.FRONTEND_URL
+      credentials: true,
+      origin: process.env.FRONTEND_URL,
     },
-}, deets => {
+  },
+  deets => {
     console.log(`Server is now running on port http/localhost:${deets.port}`);
-})
+  }
+);
