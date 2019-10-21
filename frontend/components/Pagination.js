@@ -7,49 +7,58 @@ import PaginationStyles from './styles/PaginationStyles';
 import { perPage } from '../config';
 
 const PAGINATION_QUERY = gql`
-    query PAGINATION_QUERY {
-        itemsConnection {
-            aggregate {
-                count
-            }
-        }
+  query PAGINATION_QUERY {
+    itemsConnection {
+      aggregate {
+        count
+      }
     }
+  }
 `;
 
-
-const Pagination = props => {
-    return (
-        <Query query={PAGINATION_QUERY}>
-            {({ data, loading, error }) => {
-                const count = data.itemsConnection.aggregate.count;
-                const pages = Math.ceil(count / perPage);
-                const page = props.page
-                return (
-                    <PaginationStyles>
-                        <Head>
-                            <title>Sick Fits! Page {page} of {pages}</title>
-                        </Head>
-                        <Link
-                            prefetch
-                            href={{
-                                pathname: 'items',
-                                query: { page: page - 1 }
-                            }}>
-                            <a className='prev' aria-disabled={page <= 1} >&larr; Prev</a>
-                        </Link>
-                        <p>Page {props.page} of {pages} </p>
-                        <p>{count} items total</p>
-                        <Link prefetch href={{
-                            pathname: 'items',
-                            query: { page: page + 1 }
-                        }}>
-                            <a className='next' aria-disabled={page >= pages} >Next &rarr;</a>
-                        </Link>
-                    </PaginationStyles>
-                )
+const Pagination = props => (
+  <Query query={PAGINATION_QUERY}>
+    {({ data, loading, error }) => {
+      const { count } = data.itemsConnection.aggregate;
+      const pages = Math.ceil(count / perPage);
+      const { page } = props;
+      return (
+        <PaginationStyles>
+          <Head>
+            <title>
+              Sick Fits! Page {page} of {pages}
+            </title>
+          </Head>
+          <Link
+            prefetch
+            href={{
+              pathname: 'items',
+              query: { page: page - 1 },
             }}
-        </Query>
-    )
-};
+          >
+            <a className="prev" aria-disabled={page <= 1}>
+              &larr; Prev
+            </a>
+          </Link>
+          <p>
+            Page {props.page} of {pages}{' '}
+          </p>
+          <p>{count} items total</p>
+          <Link
+            prefetch
+            href={{
+              pathname: 'items',
+              query: { page: page + 1 },
+            }}
+          >
+            <a className="next" aria-disabled={page >= pages}>
+              Next &rarr;
+            </a>
+          </Link>
+        </PaginationStyles>
+      );
+    }}
+  </Query>
+);
 
 export default Pagination;
