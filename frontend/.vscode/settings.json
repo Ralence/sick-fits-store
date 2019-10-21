@@ -6,6 +6,10 @@
     "titleBar.inactiveBackground": "#FFC600CC"
   },
   "cSpell.words": [
+    "ITEMCREATE",
+    "ITEMDELETE",
+    "ITEMUPDATE",
+    "PERMISSIONUPDATE",
     "larr",
     "lightgrey",
     "nprogress",
