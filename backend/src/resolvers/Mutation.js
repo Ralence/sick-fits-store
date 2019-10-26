@@ -217,28 +217,36 @@ const Mutations = {
     }
     // 2 query the user's current cart
     const [existingCartItem] = await ctx.db.query.cartItems({
-      user: { id: userId },
-      item: { id: args.id },
+      where: {
+        user: { id: userId },
+        item: { id: args.id },
+      },
     });
     // 3 check if the item is already in the cart
     // and increment by one if it is
     if (existingCartItem) {
-      return ctx.db.mutation.updateCartItem({
-        where: { id: existingCartItem.id },
-        data: { quantity: existingCartItem.quantity + 1 },
-      });
+      return ctx.db.mutation.updateCartItem(
+        {
+          where: { id: existingCartItem.id },
+          data: { quantity: existingCartItem.quantity + 1 },
+        },
+        info
+      );
     }
     // 4 if it is not create a new CartItem for that user
-    return ctx.db.mutation.createCartItem({
-      data: {
-        user: {
-          connect: { id: userId },
-        },
-        item: {
-          connect: { id: args.id },
+    return ctx.db.mutation.createCartItem(
+      {
+        data: {
+          user: {
+            connect: { id: userId },
+          },
+          item: {
+            connect: { id: args.id },
+          },
         },
       },
-    });
+      info
+    );
   },
 };
 
